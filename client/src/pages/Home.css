@@ -7,7 +7,7 @@
   
   /* Hero Section */
   .hero-section {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, hsl(269, 85%, 43%), #2575fc);
     color: white;
     text-align: center;
     padding: 4rem 2rem;
