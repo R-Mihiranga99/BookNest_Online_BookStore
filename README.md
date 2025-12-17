@@ -101,7 +101,7 @@ BookNest_Online_BookStore/
 **Ravindu Mihiranga**
 
 * GitHub: [https://github.com/R-Mihiranga99](https://github.com/R-Mihiranga99)
-* LinkedIn: *(Add your LinkedIn profile link here)*
+* LinkedIn: *https://www.linkedin.com/in/ravindu-mihiranga-845276247/*
 
 ---
 
