@@ -14,7 +14,7 @@ This project showcases full-stack skills including frontend development, server 
 
 ## 🛠 Technologies Used
 
-* **Frontend:** Reacr, HTML, CSS, JavaScript
+* **Frontend:** React, HTML, CSS, JavaScript
 * **Backend:** Node.js, Express, MongoDB
 * **APIs / Routing:** RESTful routes for dynamic content
 * **Version Control:** Git & GitHub
