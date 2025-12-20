@@ -9,6 +9,8 @@ import Profile from './pages/Profile';
 import Cart from './pages/Cart';
 import BookExplorer from './pages/BookExplorer';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Checkout from './pages/Checkout';
+import Orders from './pages/Orders';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/explore" element={<BookExplorer />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
       <Footer />
     </Router>

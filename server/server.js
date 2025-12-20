@@ -18,11 +18,10 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.log('❌ MongoDB connection failed:', err));
 
 // Routes
-app.use('/api', authRoutes);       // /api/register, /api/login
+app.use('/api/auth', authRoutes);       // /api/register, /api/login
 app.use('/api/books', bookRoutes); // /api/books (POST, GET, etc.)
 app.use('/api/orders', orderRoutes);
-app.use('/api/orders', require('./routes/orderRoutes'));
-app.use('/api/auth', authRoutes);
+
 
 
 // Start server

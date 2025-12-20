@@ -1,26 +1,90 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ShoppingCart, User, Menu, X } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
-  // Safely retrieve and parse user data from localStorage
-  const storedUser = localStorage.getItem('user');
-  const user = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
+  const [user, setUser] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser && storedUser !== "undefined") {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error('Error parsing user data:', err);
+        setUser(null);
+      }
+    }
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    setMobileMenuOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <nav className="navbar" style={{ color: 'white' }}>
-      <div className="logo">📚 BookNest</div>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+          <span>📚 BookNest</span>
+        </Link>
 
-      <div className="navbar-links">
-        <Link to="/explore" style={{ color: 'white' }}>Books</Link>
-        <Link to="/" style={{ color: 'white' }}>Home</Link>
-        {!user && <Link to="/login" style={{ color: 'white' }}>Login</Link>}
-        {!user && <Link to="/register" style={{ color: 'white' }}>Register</Link>}
-        {user && <Link to="/profile" style={{ color: 'white' }}>👤 Profile</Link>}
-        {user && <Link to="/cart" style={{ color: 'white' }}>🛒 Cart</Link>}
+        <button 
+          className="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <div className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
+          <div className="navbar-links">
+            <Link to="/" onClick={closeMobileMenu}>Home</Link>
+            <Link to="/explore" onClick={closeMobileMenu}>Explore Books</Link>
+          </div>
+
+          <div className="navbar-actions">
+            {!user ? (
+              <>
+                <Link to="/login" className="nav-btn login-btn" onClick={closeMobileMenu}>
+                  Login
+                </Link>
+                <Link to="/register" className="nav-btn register-btn" onClick={closeMobileMenu}>
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/cart" className="nav-icon-btn" onClick={closeMobileMenu}>
+                  <ShoppingCart size={20} />
+                  <span className="mobile-label">Cart</span>
+                </Link>
+                <Link to="/profile" className="nav-icon-btn" onClick={closeMobileMenu}>
+                  <User size={20} />
+                  <span className="mobile-label">Profile</span>
+                </Link>
+                <div className="navbar-user">
+                  <span className="user-greeting">Hi, {user.username}</span>
+                  <Link to="/" className='logout' onClick={handleLogout}>
+                  <button onClick={handleLogout} className="logout-btn">
+                    Logout
+                  </button>
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </div>
-
-      {user && <div className="navbar-user">Hi, {user.username}</div>}
     </nav>
   );
 };
